@@ -5,7 +5,12 @@ import ReactNativeBlobUtil from 'react-native-blob-util';
 import React from "react";
 
 function Tab1() {
-    ReactNativeBlobUtil.fetch('GET', 'https://google.com');
+    ReactNativeBlobUtil.fetch('POST', 'https://content.dropboxapi.com/2/files/upload', {
+        Authorization: "Bearer access token",
+        "Dropbox-API-Arg":"{\"autorename\":false,\"mode\":\"add\",\"mute\":false,\"path\":\"/Test/testfile.png\",\"strict_conflict\":false}",
+        "Content-Type": "application/octet-stream",
+        "data-binary": "@local_file.png"
+    }, ReactNativeBlobUtil.wrap('./testfile.png')).then((res) => console.log(res, res.info().status));
     return (
         <View>
             <Text>{'Ich bin Tab 1'}</Text>
